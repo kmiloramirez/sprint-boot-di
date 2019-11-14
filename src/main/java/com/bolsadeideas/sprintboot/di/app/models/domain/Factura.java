@@ -13,6 +13,7 @@ public class Factura {
 	private String descripcio;
 	@Autowired
 	private Cliente cliente;
+	@Autowired
 	private List<ItemFactura> items;
 
 	public String getDescripcio() {
