@@ -2,14 +2,16 @@ package com.bolsadeideas.sprintboot.di.app.models.domain;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Component
+@RequestScope
 public class Cliente {
 
-	@Value("${cliente.nombre")
+	@Value("${cliente.nombre}")
 	private String nombre;
-	@Value("${cliente.nombre")
-	private String apellid;
+	@Value("${cliente.apellido}")
+	private String apellido;
 
 	public String getNombre() {
 		return nombre;
@@ -19,12 +21,12 @@ public class Cliente {
 		this.nombre = nombre;
 	}
 
-	public String getApellid() {
-		return apellid;
+	public String getApellido() {
+		return apellido;
 	}
 
-	public void setApellid(String apellid) {
-		this.apellid = apellid;
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 }

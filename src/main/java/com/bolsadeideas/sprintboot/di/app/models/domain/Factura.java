@@ -1,27 +1,47 @@
 package com.bolsadeideas.sprintboot.di.app.models.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Component
-public class Factura {
+@SessionScope
+public class Factura implements Serializable {
 
-	@Value("${descripcion.factura")
-	private String descripcio;
+	private static final long serialVersionUID = 2744489446002784175L;
+	@Value("${descripcion.factura}")
+	private String descripcion;
 	@Autowired
 	private Cliente cliente;
 	@Autowired
-	private List<ItemFactura> items;
+	@Qualifier("itemsFacturaOficina")
+	private List<ItemFactura> items ;
 
-	public String getDescripcio() {
-		return descripcio;
+	@PostConstruct
+	public void inicializar() {
+		cliente.setNombre("Rodrigo");
+		descripcion = descripcion+" del cliente: "+cliente.getNombre();
 	}
 
-	public void setDescripcio(String descripcio) {
-		this.descripcio = descripcio;
+	@PreDestroy
+	public void destruir() {
+		System.out.println("factura destruida: " + descripcion);
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Cliente getCliente() {
